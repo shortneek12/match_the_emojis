@@ -1,10 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 
 body {
   margin: 0;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 1.2em;
   text-align: center;
-  background-color: #112c70;
-  color: #56e1e9;
+  background: rgb(255, 56, 104);
+  background: radial-gradient(
+    circle,
+    rgba(255, 56, 104, 1) 0%,
+    rgba(85, 14, 31, 1) 100%
+  );
+  color: #fcedd8;
 }

@@ -3,14 +3,14 @@ import "./App.css";
 import SingleCard from "./components/SingleCard";
 
 const cardImages = [
-  { src: "public/img/happiness.png", matched: false },
-  { src: "public/img/neutral-face.png", matched: false },
-  { src: "public/img/sad-face.png", matched: false },
-  { src: "public/img/slumber.png", matched: false },
-  { src: "public/img/bike.png", matched: false },
-  { src: "public/img/car.png", matched: false },
-  { src: "public/img/vehicle.png", matched: false },
-  { src: "public/img/face.png", matched: false },
+  { src: "/img/happiness.png", matched: false },
+  { src: "/img/neutral-face.png", matched: false },
+  { src: "/img/sad-face.png", matched: false },
+  { src: "/img/slumber.png", matched: false },
+  { src: "/img/bike.png", matched: false },
+  { src: "/img/car.png", matched: false },
+  { src: "/img/vehicle.png", matched: false },
+  { src: "/img/face.png", matched: false },
 ];
 
 function App() {
@@ -44,7 +44,7 @@ function App() {
               return card;
             }
           });
-        })
+        });
         resetTurn();
       } else {
         setTimeout(() => resetTurn(), 1000);
@@ -66,7 +66,13 @@ function App() {
 
       <div className="card-grid">
         {cards.map((card) => (
-          <SingleCard key={card.id} card={card} handleChoice={handleChoice} flipped={card === choiceOne || card === choiceTwo || card.matched} disabled={disabled}/>
+          <SingleCard
+            key={card.id}
+            card={card}
+            handleChoice={handleChoice}
+            flipped={card === choiceOne || card === choiceTwo || card.matched}
+            disabled={disabled}
+          />
         ))}
       </div>
 

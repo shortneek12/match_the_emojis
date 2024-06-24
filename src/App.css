@@ -1,4 +1,3 @@
-
 button{
   background: #b0183d;
   border: 2px solid #fcedd8;
@@ -8,6 +7,7 @@ button{
   font-weight: 700;
   cursor: pointer;
   font-size: 1em;
+  margin: 0px 20px;
 }
 
 button:hover{

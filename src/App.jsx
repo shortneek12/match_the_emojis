@@ -19,13 +19,27 @@ function App() {
   const [choiceOne, setChoiceOne] = React.useState(null);
   const [choiceTwo, setChoiceTwo] = React.useState(null);
   const [disabled, setDisabled] = React.useState(false);
-  const shuffle = () => {
-    const shuffledCards = [...cardImages, ...cardImages]
+  const [difficulty, setDifficulty] = React.useState(null);
+
+  const shuffle = (level) => {
+    let selectedCards;
+    if (level === "easy") {
+      selectedCards = cardImages.slice(0, 4); // 4 pairs
+    } else if (level === "medium") {
+      selectedCards = cardImages.slice(0, 6); // 6 pairs
+    } else if (level === "hard") {
+      selectedCards = cardImages; // 8 pairs
+    }
+
+    const shuffledCards = [...selectedCards, ...selectedCards]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
 
     setCards(shuffledCards);
     setTurns(0);
+    setDifficulty(level);
+    setChoiceOne(null);
+    setChoiceTwo(null);
   };
 
   const handleChoice = (card) => {
@@ -62,21 +76,29 @@ function App() {
   return (
     <div>
       <h1>Match The Emojis</h1>
-      <button onClick={shuffle}>New Game</button>
-
-      <div className="card-grid">
-        {cards.map((card) => (
-          <SingleCard
-            key={card.id}
-            card={card}
-            handleChoice={handleChoice}
-            flipped={card === choiceOne || card === choiceTwo || card.matched}
-            disabled={disabled}
-          />
-        ))}
-      </div>
-
-      <h2>no. of turns: {turns}</h2>
+      {difficulty === null ? (
+        <div className="button-container">
+          <button onClick={() => shuffle("easy")}>Easy</button>
+          <button onClick={() => shuffle("medium")}>Medium</button>
+          <button onClick={() => shuffle("hard")}>Hard</button>
+        </div>
+      ) : (
+        <div>
+          <div className="card-grid">
+            {cards.map((card) => (
+              <SingleCard
+                key={card.id}
+                card={card}
+                handleChoice={handleChoice}
+                flipped={card === choiceOne || card === choiceTwo || card.matched}
+                disabled={disabled}
+              />
+            ))}
+          </div>
+          <h2>Number of turns: {turns}</h2>
+          <button onClick={() => setDifficulty(null)}>Restart</button>
+        </div>
+      )}
     </div>
   );
 }

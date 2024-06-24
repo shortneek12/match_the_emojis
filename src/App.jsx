@@ -20,6 +20,7 @@ function App() {
   const [choiceTwo, setChoiceTwo] = React.useState(null);
   const [disabled, setDisabled] = React.useState(false);
   const [difficulty, setDifficulty] = React.useState(null);
+  const [gameCompleted, setGameCompleted] = React.useState(false);
 
   const shuffle = (level) => {
     let selectedCards;
@@ -40,6 +41,7 @@ function App() {
     setDifficulty(level);
     setChoiceOne(null);
     setChoiceTwo(null);
+    setGameCompleted(false);
   };
 
   const handleChoice = (card) => {
@@ -66,6 +68,12 @@ function App() {
     }
   }, [choiceOne, choiceTwo]);
 
+  React.useEffect(() => {
+    if (cards.length && cards.every(card => card.matched)) {
+      setGameCompleted(true);
+    }
+  }, [cards]);
+
   const resetTurn = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
@@ -74,7 +82,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="app">
       <h1>Match The Emojis</h1>
       {difficulty === null ? (
         <div className="button-container">
@@ -84,21 +92,33 @@ function App() {
         </div>
       ) : (
         <div>
-          <div className="card-grid">
-            {cards.map((card) => (
-              <SingleCard
-                key={card.id}
-                card={card}
-                handleChoice={handleChoice}
-                flipped={card === choiceOne || card === choiceTwo || card.matched}
-                disabled={disabled}
-              />
-            ))}
-          </div>
-          <h2>Number of turns: {turns}</h2>
-          <button onClick={() => setDifficulty(null)}>Restart</button>
+          {gameCompleted ? (
+            <div className="completion-message">
+              <h2>Congratulations! You've matched all the cards!</h2>
+              <button onClick={() => setDifficulty(null)}>Play Again</button>
+            </div>
+          ) : (
+            <div>
+              <div className="card-grid">
+                {cards.map((card) => (
+                  <SingleCard
+                    key={card.id}
+                    card={card}
+                    handleChoice={handleChoice}
+                    flipped={card === choiceOne || card === choiceTwo || card.matched}
+                    disabled={disabled}
+                  />
+                ))}
+              </div>
+              <h2>Number of turns: {turns}</h2>
+              <button onClick={() => setDifficulty(null)}>Restart</button>
+            </div>
+          )}
         </div>
       )}
+      <footer>
+        <p>Made by: Gaurav Basu</p>
+      </footer>
     </div>
   );
 }

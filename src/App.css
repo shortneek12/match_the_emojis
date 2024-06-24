@@ -22,4 +22,10 @@ button:hover{
   grid-gap: 5px;
 }
 
-
+.footer{
+  font-size: small;
+  margin-top: auto;
+  padding: 10px;
+  text-align: center;
+  color: #fcedd8;
+}

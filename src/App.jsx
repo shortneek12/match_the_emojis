@@ -94,7 +94,8 @@ function App() {
         <div>
           {gameCompleted ? (
             <div className="completion-message">
-              <h2>Congratulations! You've matched all the cards!</h2>
+              <h2 className="congrats">Congratulations! You've matched all the cards!</h2>
+              <h2>Total turns: {turns}</h2>
               <button onClick={() => setDifficulty(null)}>Play Again</button>
             </div>
           ) : (

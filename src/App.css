@@ -22,10 +22,15 @@ button:hover{
   grid-gap: 5px;
 }
 
-.footer{
-  font-size: small;
+footer{
+  font-size: xx-small;
   margin-top: auto;
   padding: 10px;
   text-align: center;
   color: #fcedd8;
+}
+
+.congrats{
+  font-size: xx-large;
+  padding: 10px 0px;
 }

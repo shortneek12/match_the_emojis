@@ -83,10 +83,10 @@ function App() {
 
   const updateHighScore = (name, score, level) => {
     setHighScores((prevHighScores) => {
-      const normalizedName = name.trim().toLowerCase();
+      const normalizedName = name.trim();
       const levelScores = prevHighScores[level];
 
-      const existingScore = levelScores.find(player => player.name.toLowerCase() === normalizedName);
+      const existingScore = levelScores.find(player => player.name === normalizedName);
       if (existingScore) {
         if (existingScore.score > score) {
           existingScore.score = score;
@@ -113,9 +113,9 @@ function App() {
 
   const handleStartGame = (level) => {
     if (playerName) {
-      const normalizedName = playerName.trim().toLowerCase();
+      const normalizedName = playerName.trim();
       const allScores = [...highScores.easy, ...highScores.medium, ...highScores.hard];
-      const existingPlayer = allScores.find(player => player.name.toLowerCase() === normalizedName);
+      const existingPlayer = allScores.find(player => player.name === normalizedName);
 
       if (existingPlayer) {
         alert("This name is already taken. Please choose a different name.");

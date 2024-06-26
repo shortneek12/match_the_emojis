@@ -21,6 +21,12 @@ function App() {
   const [disabled, setDisabled] = React.useState(false);
   const [difficulty, setDifficulty] = React.useState(null);
   const [gameCompleted, setGameCompleted] = React.useState(false);
+  const [playerName, setPlayerName] = React.useState("");
+  const [highScores, setHighScores] = React.useState(() => JSON.parse(localStorage.getItem('highScores')) || {
+    easy: [],
+    medium: [],
+    hard: []
+  });
 
   const shuffle = (level) => {
     let selectedCards;
@@ -71,8 +77,22 @@ function App() {
   React.useEffect(() => {
     if (cards.length && cards.every(card => card.matched)) {
       setGameCompleted(true);
+      updateHighScore(playerName, turns, difficulty);
     }
   }, [cards]);
+
+  const updateHighScore = (name, score, level) => {
+    setHighScores((prevHighScores) => {
+      const updatedScores = {
+        ...prevHighScores,
+        [level]: [...prevHighScores[level], { name, score }]
+          .sort((a, b) => a.score - b.score)
+          .slice(0, 10) // Keep only top 10 scores
+      };
+      localStorage.setItem('highScores', JSON.stringify(updatedScores));
+      return updatedScores;
+    });
+  };
 
   const resetTurn = () => {
     setChoiceOne(null);
@@ -81,14 +101,30 @@ function App() {
     setDisabled(false);
   };
 
+  const handleStartGame = (level) => {
+    if (playerName) {
+      shuffle(level);
+    } else {
+      alert("Please enter your name to start the game.");
+    }
+  };
+
   return (
     <div className="app">
       <h1>Match The Emojis</h1>
       {difficulty === null ? (
-        <div className="button-container">
-          <button onClick={() => shuffle("easy")}>Easy</button>
-          <button onClick={() => shuffle("medium")}>Medium</button>
-          <button onClick={() => shuffle("hard")}>Hard</button>
+        <div className="setup-container">
+          <input
+            type="text"
+            placeholder="Enter your name: "
+            value={playerName}
+            onChange={(e) => setPlayerName(e.target.value)}
+          />
+          <div className="button-container">
+            <button onClick={() => handleStartGame("easy")}>Easy</button>
+            <button onClick={() => handleStartGame("medium")}>Medium</button>
+            <button onClick={() => handleStartGame("hard")}>Hard</button>
+          </div>
         </div>
       ) : (
         <div>
@@ -117,6 +153,33 @@ function App() {
           )}
         </div>
       )}
+      <h2 className="title">High Scores</h2>
+      <div className="high-scores">
+        <div className="score-level">
+          <h3>Easy</h3>
+          <ul>
+            {highScores.easy.map(({ name, score }, index) => (
+              <li key={index}>{name}: {score} turns</li>
+            ))}
+          </ul>
+        </div>
+        <div className="score-level">
+          <h3>Medium</h3>
+          <ul>
+            {highScores.medium.map(({ name, score }, index) => (
+              <li key={index}>{name}: {score} turns</li>
+            ))}
+          </ul>
+        </div>
+        <div className="score-level">
+          <h3>Hard</h3>
+          <ul>
+            {highScores.hard.map(({ name, score }, index) => (
+              <li key={index}>{name}: {score} turns</li>
+            ))}
+          </ul>
+        </div>
+      </div>
       <footer>
         <p>Made by: Gaurav Basu</p>
       </footer>

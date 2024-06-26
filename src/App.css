@@ -1,4 +1,5 @@
-button{
+/* General button styles */
+button {
   background: #b0183d;
   border: 2px solid #fcedd8;
   padding: 10px 12px;
@@ -10,27 +11,131 @@ button{
   margin: 0px 20px;
 }
 
-button:hover{
+/* Button hover effect */
+button:hover {
   background: #fcedd8;
   color: #b0183d;
 }
 
-.card-grid{
+/* Grid layout for cards */
+.card-grid {
   margin: 30px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 5px;
+  grid-gap: 10px;
 }
 
-footer{
+/* Footer styling */
+footer {
   font-size: xx-small;
+  font-weight: bold;
   margin-top: auto;
   padding: 10px;
   text-align: center;
   color: #fcedd8;
 }
 
-.congrats{
+/* Congratulations message styling */
+.congrats {
   font-size: xx-large;
   padding: 10px 0px;
+}
+
+/* Setup container for initial setup (player name and difficulty buttons) */
+.setup-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Input field styling */
+input[type="text"] {
+  padding: 10px;
+  border: 2px solid #b0183d;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 1em;
+}
+
+/* High scores section styling */
+.high-scores {
+  margin: 30px;
+  padding: 20px;
+  color: #b0183d;
+  border: none;
+  border-radius: 6px;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  background-color: #fcedd8;
+  flex-wrap: wrap;
+}
+
+/* High scores heading */
+.high-scores h2 {
+  font-size: xx-large;
+  margin-bottom: 10px;
+}
+
+/* High scores table */
+.score-level {
+  flex: 1;
+  margin: 0 150px;
+  min-width: 200px;
+}
+
+/* High scores table heading */
+.score-level h3 {
+  font-size: large;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #b0183d;
+  padding-bottom: 10px;
+}
+
+/* High scores list */
+.high-scores ul {
+  padding: 0;
+  text-align: center;
+}
+
+/* High scores list item */
+.high-scores li {
+  font-size: medium;
+  font-weight: bold;
+  margin: 5px 0;
+  list-style: lower-roman;
+}
+
+/* Title styling */
+.title {
+  font-size: xx-large;
+  margin-bottom: 40px;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+  .card-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .card-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .score-level {
+    margin: 0 5px;
+  }
+}
+
+@media (max-width: 600px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  button {
+    margin: 10px 0;
+  }
+  .score-level {
+    margin: 20px 0;
+    min-width: 100%;
+  }
 }

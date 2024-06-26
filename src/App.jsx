@@ -87,12 +87,15 @@ function App() {
       const levelScores = prevHighScores[level];
 
       const existingScore = levelScores.find(player => player.name === normalizedName);
+
       if (existingScore) {
-        if (existingScore.score > score) {
+        if (score < existingScore.score) {
           existingScore.score = score;
+          notifyNewHighScore(name, score, level); // Notify if new high score is achieved
         }
       } else {
         levelScores.push({ name, score });
+        notifyNewHighScore(name, score, level); // Notify if new high score is achieved
       }
 
       const updatedScores = {
@@ -109,6 +112,10 @@ function App() {
     setChoiceTwo(null);
     setTurns((prevTurns) => prevTurns + 1);
     setDisabled(false);
+  };
+
+  const notifyNewHighScore = (name, score, level) => {
+    alert(`Congratulations ${name}! You've achieved a new high score of ${score} turns in ${level} mode.`);
   };
 
   const handleStartGame = (level) => {

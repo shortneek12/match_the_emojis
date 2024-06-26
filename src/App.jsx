@@ -112,19 +112,7 @@ function App() {
   };
 
   const handleStartGame = (level) => {
-    if (playerName) {
-      const normalizedName = playerName.trim();
-      const allScores = [...highScores.easy, ...highScores.medium, ...highScores.hard];
-      const existingPlayer = allScores.find(player => player.name === normalizedName);
-
-      if (existingPlayer) {
-        alert("This name is already taken. Please choose a different name.");
-      } else {
-        shuffle(level);
-      }
-    } else {
-      alert("Please enter your name to start the game.");
-    }
+    shuffle(level);
   };
 
   return (

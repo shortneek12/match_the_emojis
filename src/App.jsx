@@ -83,11 +83,21 @@ function App() {
 
   const updateHighScore = (name, score, level) => {
     setHighScores((prevHighScores) => {
+      const normalizedName = name.trim().toLowerCase();
+      const levelScores = prevHighScores[level];
+
+      const existingScore = levelScores.find(player => player.name.toLowerCase() === normalizedName);
+      if (existingScore) {
+        if (existingScore.score > score) {
+          existingScore.score = score;
+        }
+      } else {
+        levelScores.push({ name, score });
+      }
+
       const updatedScores = {
         ...prevHighScores,
-        [level]: [...prevHighScores[level], { name, score }]
-          .sort((a, b) => a.score - b.score)
-          .slice(0, 10) // Keep only top 10 scores
+        [level]: levelScores.sort((a, b) => a.score - b.score).slice(0, 10) // Keep only top 10 scores
       };
       localStorage.setItem('highScores', JSON.stringify(updatedScores));
       return updatedScores;
@@ -103,7 +113,15 @@ function App() {
 
   const handleStartGame = (level) => {
     if (playerName) {
-      shuffle(level);
+      const normalizedName = playerName.trim().toLowerCase();
+      const allScores = [...highScores.easy, ...highScores.medium, ...highScores.hard];
+      const existingPlayer = allScores.find(player => player.name.toLowerCase() === normalizedName);
+
+      if (existingPlayer) {
+        alert("This name is already taken. Please choose a different name.");
+      } else {
+        shuffle(level);
+      }
     } else {
       alert("Please enter your name to start the game.");
     }

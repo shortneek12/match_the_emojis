@@ -115,13 +115,16 @@ input[type="text"] {
 /* Media queries for responsiveness */
 @media (max-width: 1200px) {
   .card-grid {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .score-level {
+    margin: 0 5px;
   }
 }
 
 @media (max-width: 900px) {
   .card-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
   .score-level {
     margin: 0 5px;
@@ -130,10 +133,11 @@ input[type="text"] {
 
 @media (max-width: 600px) {
   .card-grid {
-    grid-template-columns: 1fr;
+    margin: 10px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
   button {
-    margin: 10px 0;
+    margin: 10px 8px;
   }
   .score-level {
     margin: 20px 0;

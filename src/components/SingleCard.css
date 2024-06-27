@@ -13,6 +13,14 @@
   cursor: pointer;
 }
 
+@media (max-width: 600px){
+  .card img{
+    width: 40px;
+    height: 40px;
+    margin: 0px;
+  }
+}
+
 .card .front{
   transform: rotateY(90deg);
   transition: all ease-in 0.2s;

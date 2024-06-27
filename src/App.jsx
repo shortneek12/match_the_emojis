@@ -22,6 +22,7 @@ function App() {
   const [difficulty, setDifficulty] = React.useState(null);
   const [gameCompleted, setGameCompleted] = React.useState(false);
   const [playerName, setPlayerName] = React.useState("");
+  const [nameError, setNameError] = React.useState("");
   const [highScores, setHighScores] = React.useState(() => JSON.parse(localStorage.getItem('highScores')) || {
     easy: [],
     medium: [],
@@ -119,6 +120,11 @@ function App() {
   };
 
   const handleStartGame = (level) => {
+    if (playerName.trim() === "") {
+      alert("Username is required to start the game.");
+      return;
+    }
+    setNameError("");
     shuffle(level);
   };
 
@@ -133,6 +139,7 @@ function App() {
             value={playerName}
             onChange={(e) => setPlayerName(e.target.value)}
           />
+          {nameError && <p className="error">{nameError}</p>}
           <div className="button-container">
             <button onClick={() => handleStartGame("easy")}>Easy</button>
             <button onClick={() => handleStartGame("medium")}>Medium</button>
